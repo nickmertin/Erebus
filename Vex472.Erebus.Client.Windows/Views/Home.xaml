@@ -1,0 +1,56 @@
+﻿<Page x:Class="Vex472.Erebus.Client.Windows.Views.Home"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Vex472.Erebus.Client.Windows.Views"
+      xmlns:data="clr-namespace:Vex472.Erebus.Client.Windows.DataModel"
+      xmlns:helpers="clr-namespace:Vex472.Erebus.Windows.UIHelpers;assembly=Vex472.Erebus.Windows"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300" Loaded="load" Unloaded="unload">
+    <Page.Resources>
+        <helpers:ComparisonValueConverter x:Key="notNull" Comparison="NotEqualTo" CompareValue="{x:Null}"/>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="_File">
+                <MenuItem Header="_Add new contact">
+                    <!--<MenuItem Header="_Bluetooth" Click="addContactBt"/>-->
+                    <MenuItem Header="_Network" Click="addContactNet"/>
+                </MenuItem>
+                <MenuItem Header="_Remove contact" IsEnabled="{Binding SelectedValue, ElementName=list, Converter={StaticResource notNull}}" Click="removeContact"/>
+                <MenuItem Header="_Chat" IsEnabled="{Binding SelectedValue, ElementName=list, Converter={StaticResource notNull}}" Click="chat"/>
+                <Separator/>
+                <MenuItem Header="E_xit" Command="Close"/>
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="_All" Template="{DynamicResource RadioMenuItem}" Tag="ViewType" IsCheckable="True" IsChecked="True" Checked="all"/>
+                <MenuItem Header="_Online" Template="{DynamicResource RadioMenuItem}" Tag="ViewType" IsCheckable="True" Checked="online"/>
+                <MenuItem Header="_Recent" Template="{DynamicResource RadioMenuItem}" Tag="ViewType" IsCheckable="True" Checked="recent"/>
+            </MenuItem>
+        </Menu>
+        <ListView Grid.Row="1" x:Name="list">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="data:User">
+                    <TextBlock>
+                        <Run Text="{Binding Name, Mode=OneTime}"/> (<Run Name="onlineText">Offline</Run>)
+                    </TextBlock>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Online, Mode=OneTime}" Value="True">
+                            <Setter Property="Text" Value="Online" TargetName="onlineText"/>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StatusBar Grid.Row="2">
+            <TextBlock x:Name="address"/>
+            <Button Click="copyAddress">Copy</Button>
+        </StatusBar>
+    </Grid>
+</Page>

@@ -1,0 +1,13 @@
+﻿<NavigationWindow x:Class="Vex472.Erebus.Client.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Vex472.Erebus.Client.Windows"
+        mc:Ignorable="d"
+        Title="Erebus" Height="350" Width="525" ShowsNavigationUI="False">
+    <NavigationWindow.CommandBindings>
+        <CommandBinding Command="BrowseBack" CanExecute="navCanExec"/>
+        <CommandBinding Command="BrowseForward" CanExecute="navCanExec"/>
+    </NavigationWindow.CommandBindings>
+</NavigationWindow>

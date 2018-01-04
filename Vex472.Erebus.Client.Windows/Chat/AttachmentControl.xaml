@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Vex472.Erebus.Client.Windows.Chat.AttachmentControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Vex472.Erebus.Client.Windows.Chat"
+             xmlns:helpers="clr-namespace:Vex472.Erebus.Windows.UIHelpers;assembly=Vex472.Erebus.Windows"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <helpers:BitmapImageUriParseConverter x:Key="bitmapParser"/>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Orientation="Horizontal" Tag="{Binding Item3}">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <Trigger Property="Tag" Value="{helpers:Boolean True}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <Path Style="{StaticResource paperclip}"/>
+            <TextBlock Text="{Binding Item2}"/>
+        </StackPanel>
+        <Image Visibility="Visible" Tag="{Binding Item3}" Source="{Binding Item1, Converter={StaticResource bitmapParser}}">
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Style.Triggers>
+                        <Trigger Property="Tag" Value="{helpers:Boolean True}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Width" Value="100"/>
+                            <Setter Property="Height" Value="100"/>
+                            <Setter Property="Stretch" Value="UniformToFill"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+    </Grid>
+</UserControl>
